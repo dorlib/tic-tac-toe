@@ -1,4 +1,4 @@
-# Golang Tetris Game
+# Golang Tic-Tac-Toe Game
 
 
 hello everyone! this is a terminal game using go. 
