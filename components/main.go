@@ -4,17 +4,6 @@ import (
 	"fmt"
 )
 
-//type Player struct {
-//	sign  string
-//	name  string
-//	score int
-//}
-//
-//
-//func newBoard(square [][]Symbol, dimention int) *Board {
-//	b := Board{}
-//}
-
 func main() {
 	fmt.Println("Hello ! welcome to Tic Tac Toe Game")
 
@@ -24,9 +13,17 @@ func main() {
 	gameBoard := initBoard()
 
 	symbols := gameBoard
+
+	var point *Score
+
+	point.player1Score = 0
+	point.player2Score = 0
+	point.tide = 0
+
 	printBoard(symbols, player1, player2, tide)
 
 	var gameOver bool
 	gameOver = false
+	newGame(player1, player2)
 
 }

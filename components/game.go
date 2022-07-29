@@ -1,6 +1,9 @@
 package main
 
-import "math/rand"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func newGame(player1 *Player, player2 *Player) {
 	var starter *Player
@@ -18,11 +21,15 @@ func newGame(player1 *Player, player2 *Player) {
 
 	turnIndex := 0
 
-	starterTurns = []int{0, 2, 4, 6, 8}
-	seconderTurns = []int{1, 3, 5, 7}
-
 	// for loop for every round of the game
 	for i := 0; i < 9 || gameOver == false; i++ {
-
+		if i%2 == 0 {
+			fmt.Printf("Next player to make a mark is %v", starter.name)
+			printBoard(starter, seconder, tide)
+			turnIndex++
+		} else {
+			fmt.Printf("Next player to make a mark is %v", seconder.name)
+			turnIndex++
+		}
 	}
 }
