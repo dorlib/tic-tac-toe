@@ -18,10 +18,10 @@ func main() {
 	for {
 		gameBoard = initBoard()
 		gameOver, gotTide = newGame(player1, player2, tide, gameBoard)
+		if gotTide {
+			tide++
+		}
 		if gameOver {
-			if gotTide {
-				tide++
-			}
 			fmt.Println("game over")
 			break
 		}
