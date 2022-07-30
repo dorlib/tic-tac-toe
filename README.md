@@ -7,7 +7,7 @@ Hope you enjoy it!
 
 ---
 
-![GAME](https://raw.githubusercontent.com/dorlib/tic-tac-toe/master/public/Capture.PNG)
+![GAME](https://github.com/dorlib/tic-tac-toe/blob/master/public/Capture2.PNG?raw=true)
 
 ---
 
