@@ -10,7 +10,6 @@ type iPlayer interface {
 	getSymbol() string
 	getNextMove() (int, int, error)
 	getScore() int
-	getID() int
 }
 
 type Player struct {

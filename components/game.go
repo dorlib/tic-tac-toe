@@ -6,10 +6,12 @@ import (
 	"strconv"
 )
 
+// newGame responsible for the flow of a single game
 func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) bool {
 	var starter *Player
 	var seconder *Player
 	var gameOver bool
+	occupied := make(map[string]int)
 
 	//toss a coin to determine who's starts
 	result := rand.Intn(2)
@@ -21,31 +23,46 @@ func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) 
 		seconder = player1
 	}
 
-	var i int
 	// for loop for every round of the game
+	var i int
 	for i = 0; i < 9 || gameOver == false; i++ {
 		var nextMove string
 		var nextSymbol string
 		if i%2 == 0 {
-			fmt.Printf("Next player to make a mark is %v", starter.name)
+			fmt.Printf("Next player to make a mark is %v \n", starter.name)
 			printBoard(board, starter, seconder, points)
-			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space)", starter.symbol)
+			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space) \n", starter.symbol)
 			fmt.Scan(&nextMove)
-			nextSymbol = starter.symbol
+
+			// catch invalid input
+			valid := checkInput(nextMove, occupied)
+			if !valid {
+				i--
+			} else {
+				nextSymbol = starter.symbol
+				occupied[nextMove] = i
+				rowGiven, _ := strconv.Atoi(nextMove[0:1])
+				columnGiven, _ := strconv.Atoi(nextMove[1:2])
+				board[rowGiven][columnGiven] = nextSymbol
+			}
 		} else {
-			fmt.Printf("Next player to make a mark is %v", seconder.name)
+			fmt.Printf("Next player to make a mark is %v \n", seconder.name)
 			printBoard(board, starter, seconder, points)
-			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space)", seconder.symbol)
+			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space) \n", seconder.symbol)
 			fmt.Scan(&nextMove)
-			nextSymbol = seconder.symbol
+
+			// catch invalid input
+			valid := checkInput(nextMove, occupied)
+			if !valid {
+				i--
+			} else {
+				nextSymbol = seconder.symbol
+				occupied[nextMove] = i
+				rowGiven, _ := strconv.Atoi(nextMove[0:1])
+				columnGiven, _ := strconv.Atoi(nextMove[1:2])
+				board[rowGiven][columnGiven] = nextSymbol
+			}
 		}
-
-		fmt.Println(nextMove)
-
-		rowGiven, _ := strconv.Atoi(nextMove[0:1])
-		columnGiven, _ := strconv.Atoi(nextMove[1:2])
-
-		board[rowGiven][columnGiven] = nextSymbol
 
 		res := checkIfWin(board)
 		if res {
