@@ -7,7 +7,7 @@ Hope you enjoy it!
 
 ---
 
-![GAME](file:///C:/Users/dorli/Desktop/x-and-o/public/Capture.PNG)
+![GAME](https://raw.githubusercontent.com/dorlib/tic-tac-toe/master/public/Capture.PNG)
 
 ---
 
@@ -29,7 +29,7 @@ For example, if you want to place your symbol in the top right corner, write: `0
 After the game ends, you can insert `q` for quitting and `r` to go another round!
 
 ---
-#Contributing
+# Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
 
