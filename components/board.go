@@ -19,7 +19,7 @@ func printBoard(board [][]string, player1 *Player, player2 *Player, tide int) {
 	fmt.Printf("     |  tide: %v          |\n", tide)
 	fmt.Printf("________________")
 	fmt.Printf("      |  now play's: %v  |\n", player1.name)
-	fmt.Printf("  %v  |  %v  |  %v  \n", board[2][0], board[2][1], board[2][2])
+	fmt.Printf("  %v  |  %v  |  %v  \n\n", board[2][0], board[2][1], board[2][2])
 }
 
 func checkIfWin(board [][]string) bool {
