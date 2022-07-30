@@ -7,10 +7,11 @@ import (
 )
 
 // newGame responsible for the flow of a single game
-func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) bool {
+func newGame(player1 *Player, player2 *Player, tide int, board [][]string) (bool, bool) {
 	var starter *Player
 	var seconder *Player
 	var gameOver bool
+	gotTide := false
 	occupied := make(map[string]int)
 
 	//toss a coin to determine who's starts
@@ -25,12 +26,21 @@ func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) 
 
 	// for loop for every round of the game
 	var i int
-	for i = 0; i < 9 || gameOver == false; i++ {
+	for i = 0; i < 10; i++ {
 		var nextMove string
 		var nextSymbol string
-		if i%2 == 0 {
+
+		if i == 9 {
+			fmt.Println("#################")
+			printBoard(board, starter, seconder, tide)
+			fmt.Printf("Its a tide! \n")
+			fmt.Printf("click q to exit or r to retry \n")
+			fmt.Println("#################")
+			gotTide = true
+			break
+		} else if i%2 == 0 {
 			fmt.Printf("Next player to make a mark is %v \n", starter.name)
-			printBoard(board, starter, seconder, points)
+			printBoard(board, starter, seconder, tide)
 			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space) \n", starter.symbol)
 			fmt.Scan(&nextMove)
 
@@ -47,7 +57,7 @@ func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) 
 			}
 		} else {
 			fmt.Printf("Next player to make a mark is %v \n", seconder.name)
-			printBoard(board, starter, seconder, points)
+			printBoard(board, starter, seconder, tide)
 			fmt.Printf("Where to put the %v ? (inputr row then column, seperated by space) \n", seconder.symbol)
 			fmt.Scan(&nextMove)
 
@@ -67,19 +77,35 @@ func newGame(player1 *Player, player2 *Player, points *Score, board [][]string) 
 		res := checkIfWin(board)
 		if res {
 			if i%2 == 0 {
-				fmt.Printf("%v won! click ESC to exit or Space to retry", starter.name)
-				points.player1Score++
+				fmt.Printf("################# \n")
+				fmt.Printf("%v Won! \n", starter.name)
+				printBoard(board, player1, player2, tide)
+				fmt.Printf("click q to exit or r to retry \n")
+				fmt.Println("#################")
+				starter.score++
 			} else {
-				fmt.Printf("%v won! click ESC to exit or Space to retry", seconder.name)
-				points.player2Score++
+				fmt.Printf("################# \n")
+				fmt.Printf("%v Won! \n", seconder.name)
+				printBoard(board, player1, player2, tide)
+				fmt.Printf("click q to exit or r to retry \n")
+				fmt.Println("#################")
+				seconder.score++
 			}
-			gameOver = true
-			return gameOver
+			break
 		}
 	}
-	if i == 9 {
-		points.tide++
+
+	for {
+		var quitOrRetry string
+		fmt.Scan(&quitOrRetry)
+		if quitOrRetry == "q" {
+			gameOver = true
+			return gameOver, gotTide
+		} else if quitOrRetry == "r" {
+			gameOver = false
+			return gameOver, gotTide
+		} else {
+			fmt.Println("invalid option: please press 'q' or 'r'")
+		}
 	}
-	gameOver = true
-	return gameOver
 }

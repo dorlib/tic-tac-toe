@@ -10,14 +10,20 @@ func main() {
 	fmt.Println("###########################################")
 
 	player1, player2 := setPlayers()
-
-	gameBoard := initBoard()
-
-	var points *Score
-
+	var tide int
 	var gameOver bool
-	gameOver = newGame(player1, player2, points, gameBoard)
-	if gameOver {
-		fmt.Println("game over")
+	var gotTide bool
+	var gameBoard [][]string
+
+	for {
+		gameBoard = initBoard()
+		gameOver, gotTide = newGame(player1, player2, tide, gameBoard)
+		if gameOver {
+			if gotTide {
+				tide++
+			}
+			fmt.Println("game over")
+			break
+		}
 	}
 }
