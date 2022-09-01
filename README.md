@@ -3,7 +3,7 @@
 
 hello everyone! this is a terminal game using go. 
 Ive made it while prepering for a job intreview in order to practise more go code.
-Hope you enjoy it!
+Hope you enjoy it and if you like it, give it a star !
 
 ---
 
